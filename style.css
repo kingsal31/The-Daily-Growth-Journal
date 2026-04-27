@@ -1,0 +1,614 @@
+/* Reset and Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Mobile-First Design (375-430px primary target) */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #fafafa;
+    color: #2c3e50;
+    line-height: 1.5;
+    padding: 16px;
+    font-size: 16px;
+}
+
+/* Container and Layout */
+.container {
+    max-width: 430px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    min-height: calc(100vh - 32px);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.journal-page {
+    padding: 24px 20px;
+    background-color: #ffffff;
+}
+
+/* Export Controls - Mobile Optimized */
+.export-controls {
+    padding: 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.export-btn {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    color: #4a5568;
+    padding: 12px 16px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 4px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    min-height: 44px; /* iOS touch target */
+}
+
+.export-btn:hover {
+    background-color: white;
+    transform: translateY(-1px);
+}
+
+.streak-display {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    color: white;
+    margin-top: 12px;
+    padding: 8px 16px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    display: inline-block;
+}
+
+/* Date Section */
+.date-section {
+    text-align: center;
+    margin-bottom: 32px;
+    padding: 20px 0;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.date-input {
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 700;
+    border: 2px solid #cbd5e0;
+    background-color: #f7fafc;
+    text-align: center;
+    padding: 12px 16px;
+    color: #2d3748;
+    width: 100%;
+    max-width: 220px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.date-input:focus {
+    outline: none;
+    border-color: #667eea;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Motivational Header */
+.motivational-header {
+    text-align: center;
+    margin-bottom: 36px;
+    padding: 24px 16px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.motivational-text {
+    font-size: 18px;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #1a202c;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 2px;
+}
+
+/* To-Do List Section */
+.todo-section {
+    margin-bottom: 40px;
+}
+
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    transition: all 0.2s ease;
+}
+
+.task-item:hover {
+    background-color: #e9ecef;
+    border-color: #cbd5e0;
+}
+
+.task-checkbox {
+    width: 20px;
+    height: 20px;
+    margin-right: 16px;
+    cursor: pointer;
+    accent-color: #667eea;
+    transform: scale(1.2);
+}
+
+.task-input {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: 15px;
+    padding: 8px 0;
+    color: #2d3748;
+    min-height: 24px;
+}
+
+.task-input:focus {
+    outline: none;
+}
+
+.task-input::placeholder {
+    color: #a0aec0;
+    font-style: normal;
+}
+
+/* Daily Wins Section */
+.wins-section {
+    margin-bottom: 40px;
+}
+
+.wins-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.win-box {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: left;
+}
+
+.win-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #2d3748;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.win-input {
+    width: 100%;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.8);
+    font-family: inherit;
+    font-size: 15px;
+    padding: 14px;
+    border-radius: 8px;
+    color: #2d3748;
+    transition: all 0.2s ease;
+}
+
+.win-input:focus {
+    outline: none;
+    border-color: rgba(102, 126, 234, 0.6);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.win-input::placeholder {
+    color: #718096;
+}
+
+/* Appreciation Section */
+.appreciation-section {
+    margin-bottom: 40px;
+}
+
+.appreciation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.appreciation-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    border-radius: 12px;
+}
+
+.appreciation-number {
+    font-weight: 700;
+    font-size: 18px;
+    width: 30px;
+    flex-shrink: 0;
+    color: #744210;
+}
+
+.appreciation-input {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: 15px;
+    padding: 8px 0;
+    color: #2d3748;
+    margin-left: 12px;
+    line-height: 1.5;
+}
+
+.appreciation-input:focus {
+    outline: none;
+}
+
+.appreciation-input::placeholder {
+    color: #9c7426;
+}
+
+/* End-of-Day Reflection Section */
+.reflection-section {
+    margin-bottom: 32px;
+}
+
+.reflection-textarea {
+    width: 100%;
+    min-height: 180px;
+    border: 2px solid #e2e8f0;
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 20px;
+    resize: vertical;
+    color: #2d3748;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.reflection-textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.reflection-textarea::placeholder {
+    color: #a0aec0;
+    font-style: italic;
+}
+
+/* Footer Disclaimer */
+.footer-disclaimer {
+    padding: 20px;
+    background-color: #f7fafc;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+    margin-top: auto;
+}
+
+.footer-disclaimer p {
+    font-size: 12px;
+    color: #718096;
+    line-height: 1.4;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Modal Styles - Mobile Optimized */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 380px;
+    font-family: inherit;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.modal-close {
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: 300;
+    color: #a0aec0;
+    transition: color 0.2s ease;
+    padding: 4px;
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: #4a5568;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-body p {
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #4a5568;
+}
+
+.modal-body input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+.modal-body input[type="number"]:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.modal-warning {
+    background-color: #fef5e7;
+    border: 1px solid #f6e05e;
+    padding: 12px;
+    border-radius: 8px;
+    font-style: normal;
+    color: #975a16;
+    font-size: 13px;
+}
+
+.modal-footer {
+    padding: 16px 20px 20px;
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+}
+
+.modal-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 44px;
+}
+
+.modal-btn.confirm {
+    background-color: #667eea;
+    color: #ffffff;
+}
+
+.modal-btn.confirm:hover {
+    background-color: #5a6fd8;
+    transform: translateY(-1px);
+}
+
+.modal-btn.cancel {
+    background-color: #e2e8f0;
+    color: #4a5568;
+}
+
+.modal-btn.cancel:hover {
+    background-color: #cbd5e0;
+}
+
+/* PDF Export Styles */
+@media print {
+    body {
+        background-color: #ffffff;
+        padding: 0;
+        margin: 0;
+        font-size: 12px;
+    }
+    
+    .container {
+        max-width: none;
+        margin: 0;
+        background-color: #ffffff;
+        box-shadow: none;
+        border-radius: 0;
+    }
+    
+    .journal-page {
+        padding: 20px;
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+    
+    .export-controls {
+        display: none !important;
+    }
+    
+    .footer-disclaimer {
+        display: none !important;
+    }
+}
+
+.no-print {
+    display: block;
+}
+
+/* Tablet and Desktop Scaling (768px and up) */
+@media (min-width: 768px) {
+    body {
+        padding: 24px;
+    }
+    
+    .container {
+        max-width: 768px;
+    }
+    
+    .journal-page {
+        padding: 40px;
+    }
+    
+    .export-controls {
+        padding: 24px;
+    }
+    
+    .export-btn {
+        display: inline-block;
+        margin: 6px;
+    }
+    
+    .wins-container {
+        flex-direction: row;
+        gap: 24px;
+    }
+    
+    .win-box {
+        flex: 1;
+    }
+    
+    .appreciation-list {
+        gap: 24px;
+    }
+    
+    .todo-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    
+    .reflection-textarea {
+        min-height: 200px;
+    }
+    
+    .modal-footer {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+    
+    .modal-btn {
+        flex: 0 0 auto;
+        min-width: 100px;
+    }
+}
+
+/* Large Desktop (1024px and up) */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 900px;
+    }
+    
+    .journal-page {
+        padding: 60px;
+    }
+    
+    .motivational-text {
+        font-size: 20px;
+    }
+    
+    .section-title {
+        font-size: 22px;
+    }
+}
+
+/* Ensure checkbox styling for consistent appearance */
+input[type="checkbox"] {
+    -webkit-appearance: checkbox;
+    appearance: checkbox;
+}
+
+/* Enhanced input field styling for better mobile experience */
+input[type="text"],
+input[type="date"],
+textarea {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Touch-friendly focus states */
+@media (hover: none) {
+    .task-item:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .export-btn:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+        transform: none;
+    }
+}

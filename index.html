@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Daily Growth Journal</title>
+    <!-- Content Security Policy for enhanced security -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'self';">
+    <link rel="stylesheet" href="style.css">
+    <!-- html2pdf.js CDN - Required for PDF export functionality -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Export Controls (Hidden during PDF export) -->
+        <div class="export-controls no-print">
+            <button id="exportPDF" class="export-btn">Export to PDF</button>
+            <button id="backupData" class="export-btn">Backup Data</button>
+            <button id="restoreData" class="export-btn">Restore Data</button>
+            <button id="adjustStreak" class="export-btn">Adjust Streak</button>
+            <div class="streak-display">
+                <span id="streakCounter">Current Streak: 0 days</span>
+            </div>
+        </div>
+
+        <!-- Hidden file input for data restore -->
+        <input type="file" id="dataRestore" accept=".json" style="display: none;">
+
+        <!-- Streak Adjustment Modal (Hidden by default) -->
+        <div id="streakModal" class="modal no-print" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Adjust Streak Count</h3>
+                    <span class="modal-close" id="closeModal">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p>Current streak: <span id="currentStreakDisplay">0</span> days</p>
+                    <p>Enter new streak count (0-365):</p>
+                    <input type="number" id="newStreakValue" min="0" max="365" value="0">
+                    <p class="modal-warning">⚠️ This will overwrite your current streak. Are you sure?</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="confirmStreak" class="modal-btn confirm">Confirm</button>
+                    <button id="cancelStreak" class="modal-btn cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journal Page Content -->
+        <div id="journalPage" class="journal-page">
+            
+            <!-- Date Section -->
+            <div class="date-section">
+                <input type="date" id="journalDate" class="date-input">
+            </div>
+
+            <!-- Motivational Header -->
+            <div class="motivational-header">
+                <p class="motivational-text">1% better every day — Unknown</p>
+            </div>
+
+            <!-- To-Do List -->
+            <div class="todo-section">
+                <h2 class="section-title">To-Do List</h2>
+                <div class="todo-list">
+                    <div class="task-item">
+                        <input type="checkbox" id="task1" class="task-checkbox">
+                        <input type="text" id="task1Text" class="task-input" placeholder="Add your first task">
+                    </div>
+                    <div class="task-item">
+                        <input type="checkbox" id="task2" class="task-checkbox">
+                        <input type="text" id="task2Text" class="task-input" placeholder="Add your second task">
+                    </div>
+                    <div class="task-item">
+                        <input type="checkbox" id="task3" class="task-checkbox">
+                        <input type="text" id="task3Text" class="task-input" placeholder="Add your third task">
+                    </div>
+                    <div class="task-item">
+                        <input type="checkbox" id="task4" class="task-checkbox">
+                        <input type="text" id="task4Text" class="task-input" placeholder="Add your fourth task">
+                    </div>
+                    <div class="task-item">
+                        <input type="checkbox" id="task5" class="task-checkbox">
+                        <input type="text" id="task5Text" class="task-input" placeholder="Add your fifth task">
+                    </div>
+                    <div class="task-item">
+                        <input type="checkbox" id="task6" class="task-checkbox">
+                        <input type="text" id="task6Text" class="task-input" placeholder="Add your sixth task">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Wins -->
+            <div class="wins-section">
+                <h2 class="section-title">Daily Wins</h2>
+                <div class="wins-container">
+                    <div class="win-box">
+                        <label class="win-label">Inner Win</label>
+                        <input type="text" id="innerWin" class="win-input" placeholder="Spiritual or personal growth">
+                    </div>
+                    <div class="win-box">
+                        <label class="win-label">Body Win</label>
+                        <input type="text" id="bodyWin" class="win-input" placeholder="Physical achievement or health">
+                    </div>
+                    <div class="win-box">
+                        <label class="win-label">Mind Win</label>
+                        <input type="text" id="mindWin" class="win-input" placeholder="Learning or mental progress">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appreciation Section -->
+            <div class="appreciation-section">
+                <h2 class="section-title">Today I appreciate...</h2>
+                <div class="appreciation-list">
+                    <div class="appreciation-item">
+                        <span class="appreciation-number">1.</span>
+                        <input type="text" id="appreciation1" class="appreciation-input" placeholder="Something you're grateful for">
+                    </div>
+                    <div class="appreciation-item">
+                        <span class="appreciation-number">2.</span>
+                        <input type="text" id="appreciation2" class="appreciation-input" placeholder="Another thing you appreciate">
+                    </div>
+                </div>
+            </div>
+
+            <!-- End-of-Day Reflection -->
+            <div class="reflection-section">
+                <h2 class="section-title">End-of-Day Reflection</h2>
+                <textarea id="endOfDayReflection" class="reflection-textarea" placeholder="What stood out today, and what did I learn?"></textarea>
+            </div>
+
+        </div>
+
+        <!-- Footer Disclaimer -->
+        <footer class="footer-disclaimer">
+            <p>This website and journal layout are independently created and are not affiliated with or endorsed by any other journal, brand, or trademark holder.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
