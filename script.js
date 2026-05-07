@@ -321,6 +321,133 @@ function exportToPDF() {
     // Create filename in required format: Daily-Growth-Journal-YYYY-MM-DD-Day-X-Streak.pdf
     const filename = `Daily-Growth-Journal-${currentDate}-Day-${streak}-Streak.pdf`;
     
+    // Store original content for restoration
+    const originalInputs = [];
+    const originalTextareas = [];
+    const originalCheckboxes = [];
+    const originalDateInput = [];
+    
+    // Handle date input - always show formatted date
+    const dateInput = element.querySelector('input[type="date"]');
+    if (dateInput) {
+        originalDateInput[0] = {
+            element: dateInput,
+            parent: dateInput.parentNode,
+            nextSibling: dateInput.nextSibling,
+            value: dateInput.value
+        };
+        
+        // Create a formatted date display
+        const dateSpan = document.createElement('div');
+        const formattedDate = formatDateForDisplay(dateInput.value);
+        dateSpan.textContent = formattedDate;
+        dateSpan.style.cssText = `
+            font-family: inherit;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            text-align: center;
+            padding: 12px 16px;
+            line-height: 1.4;
+        `;
+        dateInput.parentNode.replaceChild(dateSpan, dateInput);
+    }
+    
+    // Handle checkboxes - show check symbol or hide if not checked
+    const checkboxes = element.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox, index) => {
+        originalCheckboxes[index] = {
+            element: checkbox,
+            parent: checkbox.parentNode,
+            nextSibling: checkbox.nextSibling,
+            checked: checkbox.checked
+        };
+        
+        if (checkbox.checked) {
+            // Create a check symbol
+            const checkSpan = document.createElement('span');
+            checkSpan.innerHTML = '✓';
+            checkSpan.style.cssText = `
+                font-weight: bold;
+                font-size: 18px;
+                color: #16a34a;
+                margin-right: 16px;
+                display: inline-block;
+                width: 20px;
+                text-align: center;
+            `;
+            checkbox.parentNode.replaceChild(checkSpan, checkbox);
+        } else {
+            // Hide unchecked checkbox and its parent task item
+            checkbox.parentNode.style.display = 'none';
+        }
+    });
+    
+    // Replace input fields with their values or hide if empty
+    const inputs = element.querySelectorAll('input[type="text"]');
+    inputs.forEach((input, index) => {
+        originalInputs[index] = {
+            element: input,
+            parent: input.parentNode,
+            nextSibling: input.nextSibling,
+            value: input.value,
+            placeholder: input.placeholder
+        };
+        
+        if (input.value.trim() !== '') {
+            // Create a span to display the actual value
+            const span = document.createElement('span');
+            span.textContent = input.value;
+            span.style.cssText = `
+                font-family: inherit;
+                font-size: 15px;
+                color: #2d3748;
+                padding: 8px 0;
+                line-height: 1.5;
+                word-wrap: break-word;
+                display: block;
+                flex: 1;
+            `;
+            input.parentNode.replaceChild(span, input);
+        } else {
+            // Hide the entire parent container if input is empty
+            input.parentNode.style.display = 'none';
+        }
+    });
+    
+    // Handle textareas separately
+    const textareas = element.querySelectorAll('textarea');
+    textareas.forEach((textarea, index) => {
+        originalTextareas[index] = {
+            element: textarea,
+            parent: textarea.parentNode,
+            nextSibling: textarea.nextSibling,
+            value: textarea.value
+        };
+        
+        if (textarea.value.trim() !== '') {
+            // Create a div to display the textarea content with proper formatting
+            const div = document.createElement('div');
+            div.innerHTML = textarea.value.replace(/\n/g, '<br>');
+            div.style.cssText = `
+                font-family: inherit;
+                font-size: 15px;
+                line-height: 1.6;
+                color: #2d3748;
+                padding: 20px;
+                border-radius: 12px;
+                background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+                border: 2px solid #e2e8f0;
+                word-wrap: break-word;
+                white-space: pre-wrap;
+            `;
+            textarea.parentNode.replaceChild(div, textarea);
+        } else {
+            // Hide empty textarea
+            textarea.style.display = 'none';
+        }
+    });
+    
     const opt = {
         margin: 0.5,
         filename: filename,
@@ -338,11 +465,52 @@ function exportToPDF() {
         }
     };
     
-    // Add no-print class to hide export controls during PDF generation
+    // Hide export controls during PDF generation
     document.querySelector('.export-controls').style.display = 'none';
     
     html2pdf().set(opt).from(element).save().then(() => {
-        // Restore export controls after PDF generation
+        // Restore original date input
+        if (originalDateInput[0]) {
+            const original = originalDateInput[0];
+            if (original.nextSibling) {
+                original.parent.insertBefore(original.element, original.nextSibling);
+            } else {
+                original.parent.appendChild(original.element);
+            }
+        }
+        
+        // Restore original checkbox elements
+        originalCheckboxes.forEach((original) => {
+            if (original.nextSibling) {
+                original.parent.insertBefore(original.element, original.nextSibling);
+            } else {
+                original.parent.appendChild(original.element);
+            }
+            original.parent.style.display = '';
+        });
+        
+        // Restore original input elements
+        originalInputs.forEach((original) => {
+            if (original.nextSibling) {
+                original.parent.insertBefore(original.element, original.nextSibling);
+            } else {
+                original.parent.appendChild(original.element);
+            }
+            original.element.style.display = '';
+            original.parent.style.display = '';
+        });
+        
+        // Restore original textarea elements
+        originalTextareas.forEach((original) => {
+            if (original.nextSibling) {
+                original.parent.insertBefore(original.element, original.nextSibling);
+            } else {
+                original.parent.appendChild(original.element);
+            }
+            original.element.style.display = '';
+        });
+        
+        // Restore export controls
         document.querySelector('.export-controls').style.display = 'block';
     });
 }
