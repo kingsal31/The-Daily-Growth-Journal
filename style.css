@@ -53,6 +53,12 @@ body {
     border-radius: 8px;
     transition: all 0.2s ease;
     min-height: 44px; /* iOS touch target */
+    min-width: 44px; /* iOS touch target width */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1); /* iOS tap feedback */
+    -webkit-touch-callout: none; /* Disable callout on long press */
+    -webkit-user-select: none; /* Disable text selection */
+    user-select: none;
+    touch-action: manipulation; /* Disable double-tap zoom */
 }
 
 .export-btn:hover {
